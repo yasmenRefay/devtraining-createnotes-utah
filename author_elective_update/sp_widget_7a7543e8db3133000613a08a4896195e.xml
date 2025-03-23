@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sp_widget">
+    <sp_widget action="DELETE">
+        <category>custom</category>
+        <client_script><![CDATA[function($scope,$rootScope) {
+		/* widget controller */
+		var c = this;
+		
+		$rootScope.$on('selectNote', function(event,data) { 
+			console.log('Listener caught NoteID: ' + $rootScope.noteID); 
+		});
+	}
+]]></client_script>
+        <controller_as>c</controller_as>
+        <css/>
+        <data_table>sp_instance</data_table>
+        <demo_data/>
+        <description/>
+        <docs/>
+        <field_list/>
+        <has_preview>true</has_preview>
+        <id>notes__body</id>
+        <internal>false</internal>
+        <link><![CDATA[function link(scope, element, attrs, controller) {  }]]></link>
+        <name>Notes  Body</name>
+        <option_schema/>
+        <public>false</public>
+        <roles/>
+        <script><![CDATA[(function() {
+
+	if (input && input.noteID) {
+		var note = new GlideRecord('x_snc_createnotes_note');
+		if (note.get(input.noteID)) {
+			if (input.action == 'getNote') {
+				data.note = {};
+				$sp.getRecordValues(data.note, note, "title, note, sys_id");
+			}
+			else if (input.action == 'updateNote') { 
+				note.title = input.noteTitle; 
+				note.note = input.noteBody; 
+				note.update(); 
+				// Need to update the data object with the new title
+				// and first 20 characters of the note (do not want to write huge
+				// strings to the Notes List widget)
+				data.title = note.getValue('title');
+				data.note = note.getValue('note').slice(0,20);
+			}
+
+			else if (input.action == 'deleteNote') { 
+				note.deleteRecord(); 
+			}
+		}
+	}
+})();]]></script>
+        <servicenow>false</servicenow>
+        <sys_class_name>sp_widget</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2019-05-30 18:16:57</sys_created_on>
+        <sys_id>7a7543e8db3133000613a08a4896195e</sys_id>
+        <sys_mod_count>13</sys_mod_count>
+        <sys_name>Notes  Body</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_update_name>sp_widget_7a7543e8db3133000613a08a4896195e</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-22 21:02:12</sys_updated_on>
+        <template><![CDATA[<div class="panel panel-default" ng-show="c.data.noteID">
+  <div class="panel-heading clearfix">
+    <div class="row">
+      <div class="col-md-11">
+        <input class="form-control" id="note-title" ng-model="c.data.title" ng-change="c.updateNote('title')" ng-model-options="{debounce: 1000}"/>
+      </div>
+      <delete-button-confirm></delete-button-confirm>
+    </div>
+  </div>
+  <div class="panel-body">
+    <textarea class="form-control" id="note-body" ng-model="c.data.note" ng-change="c.updateNote('body')" ng-model-options="{debounce: 1000}" ></textarea>
+  </div>
+</div>]]></template>
+    </sp_widget>
+    <sys_update_version action="INSERT_OR_UPDATE">
+        <action>DELETE</action>
+        <application display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</application>
+        <file_path/>
+        <instance_id>938d79671bf5b99052a243f4bd4bcbd2</instance_id>
+        <instance_name>dev187851</instance_name>
+        <name>sp_widget_7a7543e8db3133000613a08a4896195e</name>
+        <payload>&lt;?xml version="1.0" encoding="UTF-8"?&gt;&lt;record_update table="sp_widget"&gt;&lt;sp_widget action="INSERT_OR_UPDATE"&gt;&lt;category&gt;custom&lt;/category&gt;&lt;client_script&gt;&lt;![CDATA[function($scope,$rootScope) {
+		/* widget controller */
+		var c = this;
+		
+		$rootScope.$on('selectNote', function(event,data) { 
+			console.log('Listener caught NoteID: ' + $rootScope.noteID); 
+		});
+	}
+]]&gt;&lt;/client_script&gt;&lt;controller_as&gt;c&lt;/controller_as&gt;&lt;css/&gt;&lt;data_table&gt;sp_instance&lt;/data_table&gt;&lt;demo_data/&gt;&lt;description/&gt;&lt;docs/&gt;&lt;field_list/&gt;&lt;has_preview&gt;true&lt;/has_preview&gt;&lt;id&gt;notes__body&lt;/id&gt;&lt;internal&gt;false&lt;/internal&gt;&lt;link&gt;&lt;![CDATA[function link(scope, element, attrs, controller) {  }]]&gt;&lt;/link&gt;&lt;name&gt;Notes  Body&lt;/name&gt;&lt;option_schema/&gt;&lt;public&gt;false&lt;/public&gt;&lt;roles/&gt;&lt;script&gt;&lt;![CDATA[(function() {
+
+	if (input &amp;&amp; input.noteID) {
+		var note = new GlideRecord('x_snc_createnotes_note');
+		if (note.get(input.noteID)) {
+			if (input.action == 'getNote') {
+				data.note = {};
+				$sp.getRecordValues(data.note, note, "title, note, sys_id");
+			}
+			else if (input.action == 'updateNote') { 
+				note.title = input.noteTitle; 
+				note.note = input.noteBody; 
+				note.update(); 
+				// Need to update the data object with the new title
+				// and first 20 characters of the note (do not want to write huge
+				// strings to the Notes List widget)
+				data.title = note.getValue('title');
+				data.note = note.getValue('note').slice(0,20);
+			}
+
+			else if (input.action == 'deleteNote') { 
+				note.deleteRecord(); 
+			}
+		}
+	}
+})();]]&gt;&lt;/script&gt;&lt;servicenow&gt;false&lt;/servicenow&gt;&lt;sys_class_name&gt;sp_widget&lt;/sys_class_name&gt;&lt;sys_created_by&gt;admin&lt;/sys_created_by&gt;&lt;sys_created_on&gt;2019-05-30 18:16:57&lt;/sys_created_on&gt;&lt;sys_id&gt;7a7543e8db3133000613a08a4896195e&lt;/sys_id&gt;&lt;sys_mod_count&gt;13&lt;/sys_mod_count&gt;&lt;sys_name&gt;Notes  Body&lt;/sys_name&gt;&lt;sys_package display_value="CreateNotes" source="x_snc_createnotes"&gt;df5fd9a5090232007f44e1046c8ff69f&lt;/sys_package&gt;&lt;sys_policy/&gt;&lt;sys_scope display_value="CreateNotes"&gt;df5fd9a5090232007f44e1046c8ff69f&lt;/sys_scope&gt;&lt;sys_update_name&gt;sp_widget_7a7543e8db3133000613a08a4896195e&lt;/sys_update_name&gt;&lt;sys_updated_by&gt;admin&lt;/sys_updated_by&gt;&lt;sys_updated_on&gt;2025-03-22 21:02:12&lt;/sys_updated_on&gt;&lt;template&gt;&lt;![CDATA[&lt;div class="panel panel-default" ng-show="c.data.noteID"&gt;
+  &lt;div class="panel-heading clearfix"&gt;
+    &lt;div class="row"&gt;
+      &lt;div class="col-md-11"&gt;
+        &lt;input class="form-control" id="note-title" ng-model="c.data.title" ng-change="c.updateNote('title')" ng-model-options="{debounce: 1000}"/&gt;
+      &lt;/div&gt;
+      &lt;delete-button-confirm&gt;&lt;/delete-button-confirm&gt;
+    &lt;/div&gt;
+  &lt;/div&gt;
+  &lt;div class="panel-body"&gt;
+    &lt;textarea class="form-control" id="note-body" ng-model="c.data.note" ng-change="c.updateNote('body')" ng-model-options="{debounce: 1000}" &gt;&lt;/textarea&gt;
+  &lt;/div&gt;
+&lt;/div&gt;]]&gt;&lt;/template&gt;&lt;/sp_widget&gt;&lt;/record_update&gt;</payload>
+        <payload_hash>856740748</payload_hash>
+        <record_name>Notes  Body</record_name>
+        <reverted_from/>
+        <source>0bd53efa839ca210cf84c260ceaad305</source>
+        <source_table>sys_update_set</source_table>
+        <state>previous</state>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-22 21:02:12</sys_created_on>
+        <sys_id>b68274cc83e42210cf84c260ceaad301</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_recorded_at>195bfa9d2c20000001</sys_recorded_at>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-22 21:02:12</sys_updated_on>
+        <type>Widget</type>
+        <update_guid>3e8274cc1ee42210880105110b533b00</update_guid>
+        <update_guid_history>3e8274cc1ee42210880105110b533b00:856740748,14d53272d9dca21043a28107ccbe617b:386351372</update_guid_history>
+    </sys_update_version>
+    <sys_metadata_delete action="INSERT_OR_UPDATE">
+        <sys_audit_delete display_value="Notes  Body">66a4f48083282210cf84c260ceaad345</sys_audit_delete>
+        <sys_class_name>sys_metadata_delete</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2025-03-22 21:11:29</sys_created_on>
+        <sys_db_object display_value="" name="sp_widget">sp_widget</sys_db_object>
+        <sys_id>1cebec2aae9d4ae0a0fcaa86b187c400</sys_id>
+        <sys_metadata>7a7543e8db3133000613a08a4896195e</sys_metadata>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Notes  Body</sys_name>
+        <sys_package display_value="CreateNotes" source="x_snc_createnotes">df5fd9a5090232007f44e1046c8ff69f</sys_package>
+        <sys_parent/>
+        <sys_policy/>
+        <sys_scope display_value="CreateNotes">df5fd9a5090232007f44e1046c8ff69f</sys_scope>
+        <sys_scope_delete display_value="">64daa03572704d49a928bf08a985d6f9</sys_scope_delete>
+        <sys_update_name>sp_widget_7a7543e8db3133000613a08a4896195e</sys_update_name>
+        <sys_update_version display_value="sp_widget_7a7543e8db3133000613a08a4896195e">b68274cc83e42210cf84c260ceaad301</sys_update_version>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2025-03-22 21:11:29</sys_updated_on>
+    </sys_metadata_delete>
+</record_update>
